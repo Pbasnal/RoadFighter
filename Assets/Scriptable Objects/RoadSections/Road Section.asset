@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c9b9a18a551194ab81821171ff8503, type: 3}
+  m_Name: Road Section
+  m_EditorClassIdentifier: 
+  IncomingLanes: 010000000100000001000000
+  OutgoingLanes: 010000000000000001000000
+  RoadLane: {fileID: 11400000, guid: 05c42e00f4abbc24a9708b83dad28577, type: 2}
