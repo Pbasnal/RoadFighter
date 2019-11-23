@@ -15,10 +15,7 @@ public class GameObjectPool2 : ScriptableObject
     {
         for (int i = 0; i < startingPoolCount; i++)
         {
-            var poolObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            poolObject.SetActive(false);
-            poolObject.name = DateTime.UtcNow.Ticks.ToString();
-            inactiveObjects.Enqueue(poolObject);
+            inactiveObjects.Enqueue(GetNewInActiveObject());
         }
     }
 
@@ -42,7 +39,7 @@ public class GameObjectPool2 : ScriptableObject
             Debug.Log("object doesn't exists");
             return;
         }
-        //Debug.Log(gameObject.name);
+
         var poolObject = activeObjectMap[gameObject.name];
         poolObject.SetActive(false);
         inactiveObjects.Enqueue(poolObject);
@@ -53,9 +50,7 @@ public class GameObjectPool2 : ScriptableObject
         GameObject poolObject;
         if (inactiveObjects.Count == 0)
         {
-            poolObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            poolObject.SetActive(false);
-            inactiveObjects.Enqueue(poolObject);
+            inactiveObjects.Enqueue(GetNewInActiveObject());
         }
 
         poolObject = inactiveObjects.Dequeue();
@@ -73,10 +68,7 @@ public class GameObjectPool2 : ScriptableObject
         GameObject poolObject;
         if (inactiveObjects.Count == 0)
         {
-            poolObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            poolObject.name = DateTime.UtcNow.Ticks.ToString();
-            poolObject.SetActive(false);
-            inactiveObjects.Enqueue(poolObject);
+            inactiveObjects.Enqueue(GetNewInActiveObject());
         }
 
         poolObject = inactiveObjects.Dequeue();
@@ -86,6 +78,15 @@ public class GameObjectPool2 : ScriptableObject
         }
         poolObject.transform.position = position;
         poolObject.SetActive(true);
+
+        return poolObject;
+    }
+
+    private GameObject GetNewInActiveObject()
+    {
+        var poolObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        poolObject.name = DateTime.UtcNow.Ticks.ToString();
+        poolObject.SetActive(false);
 
         return poolObject;
     }
