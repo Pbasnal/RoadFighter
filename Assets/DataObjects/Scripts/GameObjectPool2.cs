@@ -85,7 +85,7 @@ public class GameObjectPool2 : ScriptableObject
     private GameObject GetNewInActiveObject()
     {
         var poolObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-        poolObject.name = DateTime.UtcNow.Ticks.ToString();
+        poolObject.name = Guid.NewGuid().ToString();
         poolObject.SetActive(false);
 
         return poolObject;

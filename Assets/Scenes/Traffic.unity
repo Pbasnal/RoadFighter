@@ -340,6 +340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 150215230}
+  - component: {fileID: 150215231}
   m_Layer: 0
   m_Name: Road
   m_TagString: Untagged
@@ -364,6 +365,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &150215231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150215229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5008ec2a098094ca7be0416e2b7ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanes:
+  - {fileID: 910582111}
+  - {fileID: 857539338}
+  - {fileID: 67275937}
+  lanePositions: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadSectionPool: {fileID: 11400000, guid: 09c4d81d3face3045a53c1d978befe68, type: 2}
+  road: {fileID: 150215231}
 --- !u!61 &1111743301
 BoxCollider2D:
   m_ObjectHideFlags: 0
