@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class GameObjectPool2 : ScriptableObject
     public int startingPoolCount;
 
     private IDictionary<string, GameObject> activeObjectMap = new Dictionary<string, GameObject>();
-    private Queue<GameObject> inactiveObjects = new Queue<GameObject>();
+    private ConcurrentQueue<GameObject> inactiveObjects = new ConcurrentQueue<GameObject>();
 
     public void Init()
     {
@@ -48,12 +49,12 @@ public class GameObjectPool2 : ScriptableObject
     public GameObject RecycleObject()
     {
         GameObject poolObject;
-        if (inactiveObjects.Count == 0)
+        inactiveObjects.TryDequeue(out poolObject);
+        if (poolObject == null)
         {
-            inactiveObjects.Enqueue(GetNewInActiveObject());
+            poolObject = GetNewInActiveObject();
         }
-
-        poolObject = inactiveObjects.Dequeue();
+        
         if (!activeObjectMap.ContainsKey(poolObject.name))
         {
             activeObjectMap.Add(poolObject.name, poolObject);
@@ -66,12 +67,12 @@ public class GameObjectPool2 : ScriptableObject
     public GameObject RecycleObjectAt(Vector3 position)
     {
         GameObject poolObject;
-        if (inactiveObjects.Count == 0)
+        inactiveObjects.TryDequeue(out poolObject);
+        if (poolObject == null)
         {
-            inactiveObjects.Enqueue(GetNewInActiveObject());
+            poolObject = GetNewInActiveObject();
         }
 
-        poolObject = inactiveObjects.Dequeue();
         if (!activeObjectMap.ContainsKey(poolObject.name))
         {
             activeObjectMap.Add(poolObject.name, poolObject);

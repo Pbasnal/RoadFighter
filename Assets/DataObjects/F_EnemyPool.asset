@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeae2cd6b6a53b647846cd40c844ffdb, type: 3}
-  m_Name: Level Speed
+  m_Script: {fileID: 11500000, guid: 76ae7ce5c84302f4badae255e98ada16, type: 3}
+  m_Name: F_EnemyPool
   m_EditorClassIdentifier: 
-  value: 0
+  prefab: {fileID: 5837001588333113386, guid: 7fb040e6946737d40a249d03f6a38aa8, type: 3}
+  startingPoolCount: 0

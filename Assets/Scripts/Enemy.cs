@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPoolObject
 {
     [HideInInspector] public int laneNumber;
 
@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     [Range(0.5f, 2)] public float speedMultipler;
     public float msTimePerDamage = 500;
     public float carSpeed => levelSpeed.value * speedMultipler;
+
+    public GameObjectPool2 pool { get; set; }
 
     private float msTimeSinceLastDamage = 0;
 

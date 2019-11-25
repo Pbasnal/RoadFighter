@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         while (playerHealth.value > 0)
         {
-            levelSpeed.value += 0.1f;
+            levelSpeed.value += 0.01f;
             yield return new WaitForSecondsRealtime(2);
         }
 

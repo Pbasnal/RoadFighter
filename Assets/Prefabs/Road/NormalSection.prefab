@@ -243,6 +243,7 @@ MonoBehaviour:
   - {fileID: 7712592885651177095}
   - {fileID: 8027626128926794554}
   - {fileID: 7783824870972814480}
+  levelSpeed: {fileID: 11400000, guid: 798d5d93ee1179e4c958f33ae1fbf3d4, type: 2}
 --- !u!50 &7391649503100639627
 Rigidbody2D:
   serializedVersion: 4
