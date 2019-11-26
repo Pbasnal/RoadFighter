@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour, IPoolObject
 {
     [HideInInspector] public int laneNumber;
+    [HideInInspector] public List<string> calculationLog;
 
     public FloatValue playerHealth;
     public FloatValue levelSpeed;
@@ -29,10 +31,19 @@ public class Enemy : MonoBehaviour, IPoolObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.name == "Player")
+        if (collision.collider.tag == "Player")
         {
             playerHealth.value -= 2f;
             msTimeSinceLastDamage = 0;
+        }
+        else
+        {
+            var str = "";
+            foreach (var log in calculationLog)
+            {
+                str += log + "  -  ";
+            }
+            Debug.Log(str);
         }
     }
 

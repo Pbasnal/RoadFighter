@@ -23,36 +23,16 @@ public class LevelEnemyAI : MonoBehaviour
         StartCoroutine(SpawnEnemy());
     }
 
-    private void Update()
-    {
-        timeSinceLastBlock += Time.deltaTime;
-        //Debug.DrawLine(transform.position, distanceLimit.position, Color.red);
-    }
-
     private IEnumerator SpawnEnemy()
     {
         while (true)
         {
             yield return new WaitForSecondsRealtime(1);
 
-            var t1 = timeSinceLastBlock;
-
-            var enemy = blockEnemyAIs[0].slowestEnemy;
-            var d = distanceLimit.localPosition.y < 0 ?
-                distanceLimit.localPosition.y * -1 : distanceLimit.localPosition.y;
-
-            Debug.DrawLine(transform.position, new Vector2(1, transform.position.y - (minSpeedOfACar * t1)), Color.blue, 1f);
-
-            var t2a = (d - (minSpeedOfACar * t1)) / minSpeedOfACar + t1;
-            var t2b = (d / maxSpeedOfACar) + t1;
-
-            if (t2b >= t2a - 1 && t2b <= t2a + 1)
-            {
-                continue;
-            }
-
+            blockEnemyAIs[0].GenerateEnemySpawnContexts();
+            var distance = Mathf.Abs(distanceLimit.position.y - transform.position.y);
+            blockEnemyAIs[0].FilterEnemies(distance);
             blockEnemyAIs[0].SpawnEnemies();
-            timeSinceLastBlock = 0;
         }
     }
 }

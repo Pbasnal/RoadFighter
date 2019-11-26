@@ -2,13 +2,21 @@
 using System.Linq;
 using UnityEngine;
 
+public class EnemySpawnContext
+{
+    public int lane;
+    public int enemyType;
+    public bool isActive;
+
+    public List<string> calculationLog;
+}
+
 public class BlockEnemyAI : MonoBehaviour
 {
-    public GameObjectPool2 normalEnemies;
-    public GameObjectPool2 fastEnemies;
-    public GameObjectPool2 slowEnemies;
+    public GameObjectPool2[] enemyPools;
 
     private Vector2[] spawnPoints;
+    private EnemySpawnContext[] enemySpawnContexts;
 
     public Enemy fastestEnemy;
     public Enemy slowestEnemy;
@@ -17,95 +25,105 @@ public class BlockEnemyAI : MonoBehaviour
     private void Start()
     {
         spawnPoints = new Vector2[transform.childCount];
+        enemySpawnContexts = new EnemySpawnContext[transform.childCount];
 
         int i = 0;
         foreach (Transform child in transform)
         {
+            enemySpawnContexts[i] = new EnemySpawnContext { isActive = false };
             spawnPoints[i++] = child.position;
         }
     }
 
     // Update is called once per frame
-    public void SpawnEnemies()
+    public EnemySpawnContext[] GenerateEnemySpawnContexts()
     {
         var lanes = spawnPoints.ToList();
         var numberOfLanesToUse = Random.Range(1, lanes.Count);
 
+        for (int j = 0; j < enemySpawnContexts.Length; j++)
+        {
+            enemySpawnContexts[j].isActive = false;
+        }
+
         var selectedx = new List<float>();
         for (int i = 0; i < numberOfLanesToUse; i++)
         {
-            var laneToUse = Random.Range(0, lanes.Count);
-            SpawnAnEnemyAt(spawnPoints[laneToUse]);
+            enemySpawnContexts[i].isActive = true;
+            enemySpawnContexts[i].lane = Random.Range(0, lanes.Count);
+            enemySpawnContexts[i].enemyType = Random.Range(0, enemyPools.Length);
 
-            if (selectedx.Contains(spawnPoints[laneToUse].x))
+            if (selectedx.Contains(spawnPoints[enemySpawnContexts[i].lane].x))
             {
                 i--;
                 continue;
             }
-            selectedx.Add(spawnPoints[laneToUse].x);
+            selectedx.Add(spawnPoints[enemySpawnContexts[i].lane].x);
 
-            lanes.RemoveAt(laneToUse);
+            lanes.RemoveAt(enemySpawnContexts[i].lane);
         }
 
-        var str = "";
-        selectedx.ForEach(x => str += x + " - ");
-
-        Debug.Log(str);
+        return enemySpawnContexts;
     }
 
-    private void SpawnAnEnemyAt(Vector2 position)
+    public void FilterEnemies(float collisionDistance)
     {
-        var enemyToUse = Random.Range(0, 3);
-
-        GameObject spawnedEnemy = null;
-        switch (enemyToUse)
+        for (int i = 0; i < enemySpawnContexts.Length; i++)
         {
-            case 0:
-                {
-                    spawnedEnemy = normalEnemies.RecycleObjectAt(position);
-                    var enemy = spawnedEnemy.GetComponent<Enemy>();
-                    enemy.pool = normalEnemies;
+            if (!enemySpawnContexts[i].isActive)
+            {
+                continue;
+            }
 
-                    if (fastestEnemy == null || fastestEnemy.speedMultipler < enemy.speedMultipler)
-                    {
-                        fastestEnemy = enemy;
-                    }
+            var enemyPool = enemyPools[enemySpawnContexts[i].enemyType];
+            var spawnPoint = spawnPoints[enemySpawnContexts[i].lane];
 
-                    if (slowestEnemy == null || slowestEnemy.speedMultipler > enemy.speedMultipler)
-                    {
-                        slowestEnemy = enemy;
-                    }
+            var hit = Physics2D.Raycast(spawnPoint, Vector2.down, 10, gameObject.layer);
+            if (hit.collider == null || hit.collider.tag.Equals("Player"))
+            {
+                continue;
+            }
 
-                    break;
-                }
-            case 1:
-                {
-                    spawnedEnemy = fastEnemies.RecycleObjectAt(position);
-                    var enemy = spawnedEnemy.GetComponent<Enemy>();
-                    enemy.pool = fastEnemies;
-                    if (fastestEnemy == null || fastestEnemy.speedMultipler < enemy.speedMultipler)
-                    {
-                        fastestEnemy = enemy;
-                    }
+            Debug.Log("Hit");
 
-                    break;
-                }
-            case 2:
-                {
-                    spawnedEnemy = slowEnemies.RecycleObjectAt(position);
-                    var enemy = spawnedEnemy.GetComponent<Enemy>();
-                    enemy.pool = slowEnemies;
-                    if (slowestEnemy == null || slowestEnemy.speedMultipler > enemy.speedMultipler)
-                    {
-                        slowestEnemy = enemy;
-                    }
-                    break;
-                }
+
+            float distance = Mathf.Abs(hit.point.y - spawnPoint.y);
+            if (distance < collisionDistance)
+            {
+                enemySpawnContexts[i].isActive = false;
+            }
+
+            enemySpawnContexts[i].calculationLog.Add("h: " + hit.point.y);
+            enemySpawnContexts[i].calculationLog.Add("s: " + spawnPoint.y);
+            enemySpawnContexts[i].calculationLog.Add("d: " + distance);
+            enemySpawnContexts[i].calculationLog.Add("cd: " + collisionDistance);
         }
+    }
 
-        if (spawnedEnemy != null)
+    public void SpawnEnemies()
+    {
+        for (int i = 0; i < enemySpawnContexts.Length; i++)
         {
-            spawnedEnemy.transform.parent = transform;
+            if (!enemySpawnContexts[i].isActive)
+            {
+                continue;
+            }
+
+            var enemyType = enemySpawnContexts[i].enemyType;
+            var spawnPoint = spawnPoints[enemySpawnContexts[i].lane];
+
+            var spawnedObject = enemyPools[enemyType].RecycleObjectAt(spawnPoint);
+            spawnedObject.transform.parent = transform;
+
+            var enemy = spawnedObject.GetComponent<Enemy>();
+            enemy.pool = enemyPools[enemyType];
+
+            if (enemySpawnContexts[i].calculationLog == null)
+            {
+                return;
+            }
+
+            enemy.calculationLog = new List<string>(enemySpawnContexts[i].calculationLog);
         }
     }
 }
