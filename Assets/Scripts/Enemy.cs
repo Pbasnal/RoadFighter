@@ -17,44 +17,11 @@ public class Enemy : MonoBehaviour, IPoolObject
 
     private float msTimeSinceLastDamage = 0;
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (gameObject.activeInHierarchy)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - (carSpeed * Time.deltaTime), 0);
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            playerHealth.value -= 2f;
-            msTimeSinceLastDamage = 0;
-        }
-        else
-        {
-            var str = "";
-            foreach (var log in calculationLog)
-            {
-                str += log + "  -  ";
-            }
-            Debug.Log(str);
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.collider.name == "Player" && msTimeSinceLastDamage >= msTimePerDamage)
-        {
-            playerHealth.value -= 0.5f;
-            msTimeSinceLastDamage = 0;
-        }
-
-        msTimeSinceLastDamage += Time.deltaTime * 1000;
     }
 }

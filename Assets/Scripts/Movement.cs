@@ -27,6 +27,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //health.value = maxHealth;
         if (Input.GetKeyDown(KeyCode.LeftArrow) && currentPositionInUnits > movementRange * -1)
         {
             currentPositionInUnits -= moveUnits;

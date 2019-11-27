@@ -110,6 +110,7 @@ MonoBehaviour:
   - {fileID: 3160721850688741836}
   levelSpeed: {fileID: 11400000, guid: 798d5d93ee1179e4c958f33ae1fbf3d4, type: 2}
   distanceLimit: {fileID: 3160721849451520220}
+  gameState: {fileID: 11400000, guid: 73f9eb66c1b90234589eba715c8ac4ce, type: 2}
   minSpeedOfACar: 0
   maxSpeedOfACar: 0
   timeSinceLastBlock: 0
@@ -535,5 +536,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5bfcdb89076d55c44868a2934d9aa6d0, type: 2}
   - {fileID: 11400000, guid: eccd878d67199a64e8b354a56aa9184c, type: 2}
   - {fileID: 11400000, guid: 272b83fa44e7a264dbbf74dff7d3f8ff, type: 2}
+  layerOfEnemyCars:
+    serializedVersion: 2
+    m_Bits: 256
   fastestEnemy: {fileID: 0}
   slowestEnemy: {fileID: 0}

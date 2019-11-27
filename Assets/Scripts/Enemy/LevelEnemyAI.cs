@@ -6,6 +6,7 @@ public class LevelEnemyAI : MonoBehaviour
     public BlockEnemyAI[] blockEnemyAIs;
     public FloatValue levelSpeed;
     public Transform distanceLimit;
+    public GameStateObject gameState;
 
     public float minSpeedOfACar = 5 * 0.5f;
     public float maxSpeedOfACar = 5 * 1.5f;
@@ -29,10 +30,20 @@ public class LevelEnemyAI : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1);
 
+            if (gameState.gameState == GameState.Pause)
+            {
+                continue;
+            }
+
             blockEnemyAIs[0].GenerateEnemySpawnContexts();
-            var distance = Mathf.Abs(distanceLimit.position.y - transform.position.y);
-            blockEnemyAIs[0].FilterEnemies(distance);
-            blockEnemyAIs[0].SpawnEnemies();
+
+            blockEnemyAIs[0].FilterEnemies(distanceLimit.position);
+            var blocking = blockEnemyAIs[0].WillEnemiesBlockPlayer(distanceLimit.position);
+
+            if (!blocking)
+            {
+                blockEnemyAIs[0].SpawnEnemies();
+            }
         }
     }
 }

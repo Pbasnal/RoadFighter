@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public Text pointsText;
     public Text healthText;
     public Text multiplierText;
+    public Text levelSpeedText;
+
+    public GameStateObject gameState;
 
     // Use this for initialization
     private void Start()
@@ -43,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         while (playerHealth.value > 0)
         {
-            levelSpeed.value += 0.01f;
+            levelSpeed.value += 0.1f;
             yield return new WaitForSecondsRealtime(2);
         }
 
@@ -56,6 +59,7 @@ public class GameManager : MonoBehaviour
         pointsText.text = playerPoints.value.ToString();
         healthText.text = playerHealth.value.ToString();
         multiplierText.text = pointsMultiplier.value.ToString();
+        levelSpeedText.text = levelSpeed.value.ToString();
 
         if (playerHealth.value <= 0)
         {

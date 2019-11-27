@@ -8,9 +8,12 @@ public class MenuManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject inGameStats;
 
+    public GameStateObject gameState;
+
     private void Start()
     {
         Time.timeScale = 0;
+        gameState.gameState = GameState.Pause;
         pauseMenu.SetActive(false);
         mainMenu.SetActive(true);
         inGameStats.SetActive(false);
@@ -34,6 +37,7 @@ public class MenuManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0;
+        gameState.gameState = GameState.Pause;
         pauseMenu.SetActive(true);
         mainMenu.SetActive(false);
         inGameStats.SetActive(false);
@@ -42,6 +46,7 @@ public class MenuManager : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
+        gameState.gameState = GameState.Running;
         pauseMenu.SetActive(false);
         mainMenu.SetActive(false);
         inGameStats.SetActive(true);
@@ -50,6 +55,7 @@ public class MenuManager : MonoBehaviour
     public void Play()
     {
         Time.timeScale = 1;
+        gameState.gameState = GameState.Running;
     }
 
     public void Quit()
@@ -60,6 +66,7 @@ public class MenuManager : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 0;
+        gameState.gameState = GameState.Pause;
         pauseMenu.SetActive(false);
         mainMenu.SetActive(true);
         inGameStats.SetActive(false);

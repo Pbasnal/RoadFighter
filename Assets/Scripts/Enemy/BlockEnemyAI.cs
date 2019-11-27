@@ -6,14 +6,17 @@ public class EnemySpawnContext
 {
     public int lane;
     public int enemyType;
-    public bool isActive;
+    public float collisionDistance;
+    public bool spawnCar;
+    public Enemy enemy;
 
-    public List<string> calculationLog;
+    public List<string> calculationLog = new List<string>();
 }
 
 public class BlockEnemyAI : MonoBehaviour
 {
     public GameObjectPool2[] enemyPools;
+    public LayerMask layerOfEnemyCars;
 
     private Vector2[] spawnPoints;
     private EnemySpawnContext[] enemySpawnContexts;
@@ -30,7 +33,7 @@ public class BlockEnemyAI : MonoBehaviour
         int i = 0;
         foreach (Transform child in transform)
         {
-            enemySpawnContexts[i] = new EnemySpawnContext { isActive = false };
+            enemySpawnContexts[i] = new EnemySpawnContext { spawnCar = false };
             spawnPoints[i++] = child.position;
         }
     }
@@ -43,13 +46,15 @@ public class BlockEnemyAI : MonoBehaviour
 
         for (int j = 0; j < enemySpawnContexts.Length; j++)
         {
-            enemySpawnContexts[j].isActive = false;
+            enemySpawnContexts[j].spawnCar = false;
+            enemySpawnContexts[j].enemy = null;
+            enemySpawnContexts[j].collisionDistance = 0;
         }
 
         var selectedx = new List<float>();
         for (int i = 0; i < numberOfLanesToUse; i++)
         {
-            enemySpawnContexts[i].isActive = true;
+            enemySpawnContexts[i].spawnCar = true;
             enemySpawnContexts[i].lane = Random.Range(0, lanes.Count);
             enemySpawnContexts[i].enemyType = Random.Range(0, enemyPools.Length);
 
@@ -66,33 +71,39 @@ public class BlockEnemyAI : MonoBehaviour
         return enemySpawnContexts;
     }
 
-    public void FilterEnemies(float collisionDistance)
-    {
+    public void FilterEnemies(Vector3 collisionPosition)
+    {        
         for (int i = 0; i < enemySpawnContexts.Length; i++)
         {
-            if (!enemySpawnContexts[i].isActive)
-            {
-                continue;
-            }
+            //if (!enemySpawnContexts[i].spawnCar)
+            //{
+            //    continue;
+            //}
 
             var enemyPool = enemyPools[enemySpawnContexts[i].enemyType];
             var spawnPoint = spawnPoints[enemySpawnContexts[i].lane];
 
-            var hit = Physics2D.Raycast(spawnPoint, Vector2.down, 10, gameObject.layer);
-            if (hit.collider == null || hit.collider.tag.Equals("Player"))
+            var collisionDistance = Mathf.Abs(collisionPosition.y - spawnPoint.y);
+            var hit = Physics2D.Raycast(spawnPoint, Vector2.down, collisionDistance, layerOfEnemyCars);
+            Debug.DrawLine(spawnPoint, spawnPoint + Vector2.down * collisionDistance, Color.red, 1);
+            if (hit.collider == null || !hit.collider.tag.Equals("Enemy"))
             {
+                Debug.Log("Enemy not hit: " + hit.collider?.tag);
                 continue;
             }
 
-            Debug.Log("Hit");
-
+            Debug.Log("Hit - " + hit.collider.tag);
 
             float distance = Mathf.Abs(hit.point.y - spawnPoint.y);
+            Debug.DrawLine(spawnPoint + new Vector2(0.1f, 0), spawnPoint + new Vector2(0.1f, -1 * distance), Color.blue, 1);
+
             if (distance < collisionDistance)
             {
-                enemySpawnContexts[i].isActive = false;
+                enemySpawnContexts[i].spawnCar = false;
             }
 
+            enemySpawnContexts[i].collisionDistance = distance;
+            enemySpawnContexts[i].enemy = hit.collider.GetComponent<Enemy>();
             enemySpawnContexts[i].calculationLog.Add("h: " + hit.point.y);
             enemySpawnContexts[i].calculationLog.Add("s: " + spawnPoint.y);
             enemySpawnContexts[i].calculationLog.Add("d: " + distance);
@@ -100,11 +111,43 @@ public class BlockEnemyAI : MonoBehaviour
         }
     }
 
+    public bool WillEnemiesBlockPlayer(Vector3 collisionPosition)
+    {
+        bool blocking = true;
+
+        var timeToReach = new float[enemySpawnContexts.Length];
+        for (int i = 0; i < enemySpawnContexts.Length; i++)
+        {
+            var collisionDistance = Mathf.Abs(spawnPoints[i].y - collisionPosition.y);
+            if (enemySpawnContexts[i].spawnCar)
+            {
+                var carToSpawn = enemyPools[enemySpawnContexts[i].enemyType].prefab.GetComponent<Enemy>();
+                timeToReach[i] = collisionDistance / carToSpawn.carSpeed;
+            }
+            else if (enemySpawnContexts[i].enemy != null)
+            {
+                timeToReach[i] = Mathf.Abs(collisionDistance - enemySpawnContexts[i].collisionDistance) / enemySpawnContexts[i].enemy.carSpeed;
+            }
+        }
+
+        var prevTime = timeToReach[0];
+        for (int i = 1; i < timeToReach.Length; i++)
+        {
+            if (Mathf.Abs(timeToReach[i] - prevTime) > 0.1)
+            {
+                blocking = false;
+                break;
+            }
+        }
+
+        return blocking;
+    }
+
     public void SpawnEnemies()
     {
         for (int i = 0; i < enemySpawnContexts.Length; i++)
         {
-            if (!enemySpawnContexts[i].isActive)
+            if (!enemySpawnContexts[i].spawnCar)
             {
                 continue;
             }
