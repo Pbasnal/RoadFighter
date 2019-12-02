@@ -4,6 +4,7 @@ public class RoadGenerator : MonoBehaviour
 {
     public GameObjectPool2 roadSectionPool;
     public int startingNumberOfSections = 3;
+    public FloatValue levelSpeed;
 
     private RoadSectionBehaviour latestRoadSection;
 
@@ -23,6 +24,24 @@ public class RoadGenerator : MonoBehaviour
             latest.transform.parent = transform;
             latestRoadSection = latest.GetComponent<RoadSectionBehaviour>();
             spawnPoint = latestRoadSection.newSpawnPosition[1].position;
+        }
+    }
+
+    private void Update()
+    {
+        if (transform.childCount == 0)
+        {
+            return;
+        }
+
+        foreach (Transform roadSection in transform)
+        {
+            if (!roadSection.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            roadSection.position = new Vector2(roadSection.position.x, roadSection.position.y - (levelSpeed.value * Time.deltaTime));
         }
     }
 

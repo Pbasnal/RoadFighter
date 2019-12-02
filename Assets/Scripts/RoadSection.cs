@@ -7,9 +7,9 @@ public class RoadSection : MonoBehaviour
 
     private void Update()
     {
-        if (isSectionVisible)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y - (levelSpeed.value * Time.deltaTime), 0);
-        }
+        //if (isSectionVisible)
+        //{
+        //    transform.position = new Vector3(transform.position.x, transform.position.y - (levelSpeed.value * Time.deltaTime), 0);
+        //}
     }
 }
