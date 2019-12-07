@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Concurrent;
+using UnityEngine;
 
 public class RoadGenerator : MonoBehaviour
 {
@@ -7,10 +8,11 @@ public class RoadGenerator : MonoBehaviour
     public FloatValue levelSpeed;
 
     private RoadSectionBehaviour latestRoadSection;
-
+    private ConcurrentQueue<bool> sectionSpawnchannel;
     // Use this for initialization
     private void Awake()
     {
+        sectionSpawnchannel = new ConcurrentQueue<bool>();
         roadSectionPool.Init();
     }
 
@@ -27,12 +29,20 @@ public class RoadGenerator : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (transform.childCount == 0)
         {
             return;
         }
+
+        //while (sectionSpawnchannel.Count > 0)
+        //{
+        //    sectionSpawnchannel.TryDequeue(out bool res);
+        //    var newSection = roadSectionPool.RecycleObjectAt(latestRoadSection.newSpawnPosition[1].position);
+        //    newSection.transform.parent = transform;
+        //    latestRoadSection = newSection.GetComponent<RoadSectionBehaviour>();
+        //}
 
         foreach (Transform roadSection in transform)
         {
@@ -53,6 +63,9 @@ public class RoadGenerator : MonoBehaviour
         {
             return;
         }
+
+        //sectionSpawnchannel.Enqueue(true);
+
         var newSection = roadSectionPool.RecycleObjectAt(latestRoadSection.newSpawnPosition[1].position);
         newSection.transform.parent = transform;
         latestRoadSection = newSection.GetComponent<RoadSectionBehaviour>();
