@@ -36,13 +36,13 @@ public class RoadGenerator : MonoBehaviour
             return;
         }
 
-        //while (sectionSpawnchannel.Count > 0)
-        //{
-        //    sectionSpawnchannel.TryDequeue(out bool res);
-        //    var newSection = roadSectionPool.RecycleObjectAt(latestRoadSection.newSpawnPosition[1].position);
-        //    newSection.transform.parent = transform;
-        //    latestRoadSection = newSection.GetComponent<RoadSectionBehaviour>();
-        //}
+        while (sectionSpawnchannel.Count > 0)
+        {
+            sectionSpawnchannel.TryDequeue(out bool res);
+            var newSection = roadSectionPool.RecycleObjectAt(latestRoadSection.newSpawnPosition[1].position);
+            newSection.transform.parent = transform;
+            latestRoadSection = newSection.GetComponent<RoadSectionBehaviour>();
+        }
 
         foreach (Transform roadSection in transform)
         {
@@ -64,10 +64,10 @@ public class RoadGenerator : MonoBehaviour
             return;
         }
 
-        //sectionSpawnchannel.Enqueue(true);
+        sectionSpawnchannel.Enqueue(true);
 
-        var newSection = roadSectionPool.RecycleObjectAt(latestRoadSection.newSpawnPosition[1].position);
-        newSection.transform.parent = transform;
-        latestRoadSection = newSection.GetComponent<RoadSectionBehaviour>();
+        //var newSection = roadSectionPool.RecycleObjectAt(latestRoadSection.newSpawnPosition[1].position);
+        //newSection.transform.parent = transform;
+        //latestRoadSection = newSection.GetComponent<RoadSectionBehaviour>();
     }
 }

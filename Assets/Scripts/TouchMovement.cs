@@ -42,6 +42,8 @@ namespace Assets.Scripts
                 return 0;
             }
 
+            Debug.Log("Touched");
+
             var touch = Input.GetTouch(0);
             Vector2 direction = Vector2.zero;
 
@@ -49,8 +51,9 @@ namespace Assets.Scripts
             {
                 initialPosition = touch.position;
                 touchHold = false;
+                return 0;
             }
-            else if (!touchHold && (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary))
+            else if (!touchHold && touch.phase == TouchPhase.Moved)
             {
                 touchHold = true;
                 direction = touch.position - initialPosition;
