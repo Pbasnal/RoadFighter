@@ -1,100 +1,94 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameObject Pool", menuName = "Level/Pool", order = 52)]
 public class GameObjectPool : ScriptableObject
 {
-    private IDictionary<string, Queue<GameObject>> activeCarsMap;
-    private IDictionary<string, Queue<GameObject>> inactiveCarsMap;
+    public GameObject prefab;
+    public int startingPoolCount;
 
-    public GameObject[] objectGameObjectypes { get; private set; }
-    private GameObject mostRecentActiveObject { get; set; }
+    private IDictionary<string, GameObject> activeObjectMap = new Dictionary<string, GameObject>();
+    private ConcurrentQueue<GameObject> inactiveObjects = new ConcurrentQueue<GameObject>();
 
-    public void Init(GameObject[] gameObjects)
+    public void Init()
     {
-        activeCarsMap = new Dictionary<string, Queue<GameObject>>();
-        inactiveCarsMap = new Dictionary<string, Queue<GameObject>>();
-        objectGameObjectypes = new GameObject[gameObjects.Length];
-
-        int i = 0;
-        for (int j = 0; j < gameObjects.Length; j++)
+        for (int i = 0; i < startingPoolCount; i++)
         {
-            if (!inactiveCarsMap.ContainsKey(gameObjects[j].name))
-            {
-                inactiveCarsMap.Add(gameObjects[j].name, new Queue<GameObject>());
-                activeCarsMap.Add(gameObjects[j].name, new Queue<GameObject>());
-                objectGameObjectypes[i++] = gameObjects[j];
-            }
-            inactiveCarsMap[gameObjects[j].name].Enqueue(gameObjects[j]);
+            inactiveObjects.Enqueue(GetNewInActiveObject());
         }
     }
 
     public void AddInactiveObject(string objectType, GameObject gameObject)
     {
-        if (!inactiveCarsMap.ContainsKey(objectType))
-        {
-            inactiveCarsMap.Add(objectType, new Queue<GameObject>());
-        }
-        inactiveCarsMap[objectType].Enqueue(gameObject);
+        inactiveObjects.Enqueue(gameObject);
     }
 
     public void AddActiveObject(string objectype, GameObject gameObject)
     {
-        if (!activeCarsMap.ContainsKey(objectype))
+        if (!activeObjectMap.ContainsKey(gameObject.name))
         {
-            activeCarsMap.Add(objectype, new Queue<GameObject>());
-        }
-        activeCarsMap[objectype].Enqueue(gameObject);
-
-        if (activeCarsMap[objectype].Count == 0)
-        {
-            mostRecentActiveObject = null;
-        }
-        else
-        {
-            mostRecentActiveObject = activeCarsMap[objectype].Peek();
+            activeObjectMap.Add(gameObject.name, gameObject);
         }
     }
 
-    public GameObject DeactivateTopObject(string objectType)
+    public void DeactivateObject(GameObject gameObject)
     {
-        if (activeCarsMap[objectType].Count == 0)
+        if (!activeObjectMap.ContainsKey(gameObject.name))
         {
-            mostRecentActiveObject = null;
-            return null;
+            Debug.Log("object doesn't exists");
+            return;
         }
-        var poolObject = activeCarsMap[objectType].Dequeue();
-        inactiveCarsMap[objectType].Enqueue(poolObject);
 
-        if (activeCarsMap[objectType].Count == 0)
+        var poolObject = activeObjectMap[gameObject.name];
+        poolObject.SetActive(false);
+        inactiveObjects.Enqueue(poolObject);
+    }
+
+    public GameObject RecycleObject()
+    {
+        GameObject poolObject;
+        inactiveObjects.TryDequeue(out poolObject);
+        if (poolObject == null)
         {
-            mostRecentActiveObject = null;
+            poolObject = GetNewInActiveObject();
         }
-        else
+        
+        if (!activeObjectMap.ContainsKey(poolObject.name))
         {
-            mostRecentActiveObject = activeCarsMap[objectType].Peek();
+            activeObjectMap.Add(poolObject.name, poolObject);
         }
+        poolObject.SetActive(true);
 
         return poolObject;
     }
 
-    public GameObject RecycleObject(string objectType)
+    public GameObject RecycleObjectAt(Vector3 position)
     {
-        if (inactiveCarsMap[objectType].Count == 0)
+        GameObject poolObject;
+        inactiveObjects.TryDequeue(out poolObject);
+        if (poolObject == null)
         {
-            return null;
+            poolObject = GetNewInActiveObject();
         }
-        var poolObject = inactiveCarsMap[objectType].Dequeue();
-        activeCarsMap[objectType].Enqueue(poolObject);
 
-        if (activeCarsMap[objectType].Count == 0)
+        if (!activeObjectMap.ContainsKey(poolObject.name))
         {
-            mostRecentActiveObject = null;
+            activeObjectMap.Add(poolObject.name, poolObject);
         }
-        else
-        {
-            mostRecentActiveObject = activeCarsMap[objectType].Peek();
-        }
+        poolObject.transform.position = position;
+        poolObject.SetActive(true);
+
+        return poolObject;
+    }
+
+    private GameObject GetNewInActiveObject()
+    {
+        var poolObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        poolObject.name = Guid.NewGuid().ToString();
+        poolObject.SetActive(false);
+
         return poolObject;
     }
 }

@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
 
-public class RoadSectionBehaviour : MonoBehaviour
+public class RoadSectionBehaviour : MonoBehaviour, IRoadSection
 {
     public RoadSectionData roadSectionData;
-    public Transform[] newSpawnPosition;
+    public Transform newSpawnPosition;
     public FloatValue levelSpeed;
+    public FloatValue roadSpeed;
 
-    private float roadSpeed;
-    private float roadLength;
+    public RoadSectionData RoadSectionData => roadSectionData;
+    public Vector2 NewSpawnPosition => newSpawnPosition.position;
+    public FloatValue LevelSpeed => levelSpeed;
+    public FloatValue RoadSpeed => roadSpeed;
 
-    private void Start()
-    {
-        roadSpeed = levelSpeed.value * 0.4f;
-    }
+    public Vector2 Position => transform.position;
 
-    private void Update()
-    {
-        transform.position += roadSectionData.direction.normalized * roadSpeed * Time.deltaTime;
-    }
+    public void SetActive(bool isActive) => gameObject.SetActive(isActive);
+
+    public void SetParent(Transform parent) => transform.parent = parent;
+
+    public void SetPosition(Vector2 position) => transform.position = position;
 }

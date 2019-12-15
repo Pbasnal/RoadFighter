@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelEnemyAI : MonoBehaviour
 {
-    public BlockEnemyAI[] blockEnemyAIs;
+    public EnemyAI[] blockEnemyAis;
     public FloatValue levelSpeed;
     public Transform distanceLimit;
     public GameStateObject gameState;
@@ -35,15 +35,7 @@ public class LevelEnemyAI : MonoBehaviour
                 continue;
             }
 
-            blockEnemyAIs[0].GenerateEnemySpawnContexts();
-
-            blockEnemyAIs[0].FilterEnemies(distanceLimit.position);
-            var blocking = blockEnemyAIs[0].WillEnemiesBlockPlayer(distanceLimit.position);
-
-            if (!blocking)
-            {
-                blockEnemyAIs[0].SpawnEnemies();
-            }
+            blockEnemyAis[0].SpawnEnemies(distanceLimit.position);
         }
     }
 }

@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IPoolObject
     public float msTimePerDamage = 500;
     public float carSpeed => levelSpeed.value * speedMultipler;
 
-    public GameObjectPool2 pool { get; set; }
+    public GameObjectPool pool { get; set; }
 
     private float msTimeSinceLastDamage = 0;
 

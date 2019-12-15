@@ -13,9 +13,9 @@ public class EnemySpawnContext
     public List<string> calculationLog = new List<string>();
 }
 
-public class BlockEnemyAI : MonoBehaviour
+public class BlockEnemyAI : EnemyAI
 {
-    public GameObjectPool2[] enemyPools;
+    public GameObjectPool[] enemyPools;
     public LayerMask layerOfEnemyCars;
 
     private Vector2[] spawnPoints;
@@ -23,6 +23,44 @@ public class BlockEnemyAI : MonoBehaviour
 
     public Enemy fastestEnemy;
     public Enemy slowestEnemy;
+
+    public override bool SpawnEnemies(Vector2 distanceLimit)
+    {
+        GenerateEnemySpawnContexts();
+        FilterEnemies(distanceLimit);
+        var blocking = WillEnemiesBlockPlayer(distanceLimit);
+
+        if (blocking)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < enemySpawnContexts.Length; i++)
+        {
+            if (!enemySpawnContexts[i].spawnCar)
+            {
+                continue;
+            }
+
+            var enemyType = enemySpawnContexts[i].enemyType;
+            var spawnPoint = spawnPoints[enemySpawnContexts[i].lane];
+
+            var spawnedObject = enemyPools[enemyType].RecycleObjectAt(spawnPoint);
+            spawnedObject.transform.parent = transform;
+
+            var enemy = spawnedObject.GetComponent<Enemy>();
+            enemy.pool = enemyPools[enemyType];
+
+            if (enemySpawnContexts[i].calculationLog == null)
+            {
+                return false;
+            }
+
+            enemy.calculationLog = new List<string>(enemySpawnContexts[i].calculationLog);
+        }
+
+        return true;
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -38,8 +76,7 @@ public class BlockEnemyAI : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    public EnemySpawnContext[] GenerateEnemySpawnContexts()
+    private EnemySpawnContext[] GenerateEnemySpawnContexts()
     {
         var lanes = spawnPoints.ToList();
         var numberOfLanesToUse = Random.Range(1, lanes.Count);
@@ -71,8 +108,8 @@ public class BlockEnemyAI : MonoBehaviour
         return enemySpawnContexts;
     }
 
-    public void FilterEnemies(Vector3 collisionPosition)
-    {        
+    private void FilterEnemies(Vector3 collisionPosition)
+    {
         for (int i = 0; i < enemySpawnContexts.Length; i++)
         {
             //if (!enemySpawnContexts[i].spawnCar)
@@ -111,7 +148,7 @@ public class BlockEnemyAI : MonoBehaviour
         }
     }
 
-    public bool WillEnemiesBlockPlayer(Vector3 collisionPosition)
+    private bool WillEnemiesBlockPlayer(Vector3 collisionPosition)
     {
         bool blocking = true;
 
@@ -141,32 +178,5 @@ public class BlockEnemyAI : MonoBehaviour
         }
 
         return blocking;
-    }
-
-    public void SpawnEnemies()
-    {
-        for (int i = 0; i < enemySpawnContexts.Length; i++)
-        {
-            if (!enemySpawnContexts[i].spawnCar)
-            {
-                continue;
-            }
-
-            var enemyType = enemySpawnContexts[i].enemyType;
-            var spawnPoint = spawnPoints[enemySpawnContexts[i].lane];
-
-            var spawnedObject = enemyPools[enemyType].RecycleObjectAt(spawnPoint);
-            spawnedObject.transform.parent = transform;
-
-            var enemy = spawnedObject.GetComponent<Enemy>();
-            enemy.pool = enemyPools[enemyType];
-
-            if (enemySpawnContexts[i].calculationLog == null)
-            {
-                return;
-            }
-
-            enemy.calculationLog = new List<string>(enemySpawnContexts[i].calculationLog);
-        }
     }
 }
