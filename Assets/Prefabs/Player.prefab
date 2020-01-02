@@ -185,6 +185,9 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 900383054c59efb4faa1b326e4d276fe, type: 2}
   leftLimit: -1
   rightLimit: 1
+  keyboardInputManager: {fileID: 11400000, guid: bc87d05ac094a94469be78886f817dc8,
+    type: 2}
+  touchInputManager: {fileID: 11400000, guid: 00c185efe0d8d5e4986aad3e2f9443e7, type: 2}
   rayLength: 0.4
   speed: 5
   moveUnits: 1

@@ -20,7 +20,7 @@ namespace Assets.Scripts.UnityCode
 
         public float Speed => levelSpeed.value * speedMultiplier;
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (gameState.State != States.Running)
             {

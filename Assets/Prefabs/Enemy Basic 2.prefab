@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 900383054c59efb4faa1b326e4d276fe, type: 2}
   levelSpeed: {fileID: 11400000, guid: b492649ae408f1440a3ccaaf6b982111, type: 2}
-  speedMultiplier: 1.5
+  speedMultiplier: 2
 --- !u!114 &6302919891429300937
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.UnityLogic.BehaviourInterface;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using static Assets.Scripts.UnityLogic.ScriptableObjects.TransformMovementController;
 
@@ -12,6 +14,8 @@ namespace Assets.Scripts.UnityCode
         public GameState gameState;
         public int leftLimit;
         public int rightLimit;
+        public InputManager keyboardInputManager;
+        public InputManager touchInputManager;
 
         public float rayLength;
 
@@ -37,9 +41,24 @@ namespace Assets.Scripts.UnityCode
         public int LeftLimit => leftLimit;
         public int RightLimit => rightLimit;
 
+        private InputManager inputManager;
+        private IDictionary<InputCommand, Action> commandMap;
+
         public RaycastHit2D Raycast(Vector2 origin, Vector2 direction, float distance, int layerMask)
         {
             return Physics2D.Raycast(origin, direction, distance, layerMask);
+        }
+
+        private void Awake()
+        {
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                inputManager = touchInputManager;
+            }
+            else
+            {
+                inputManager = keyboardInputManager;
+            }
         }
 
         // Start is called before the first frame update
@@ -48,6 +67,13 @@ namespace Assets.Scripts.UnityCode
             controller.SetActor(this);
             controller.SetDirectionBlocked(Direction.Left, false);
             controller.SetDirectionBlocked(Direction.Right, false);
+
+            commandMap = new Dictionary<InputCommand, Action>
+            {
+                { InputCommand.None, EmptyCommand },
+                { InputCommand.Left, controller.MoveDestinationLeft },
+                { InputCommand.Right, controller.MoveDestinationRight}
+            };
         }
 
         // Update is called once per frame
@@ -58,14 +84,7 @@ namespace Assets.Scripts.UnityCode
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                controller.MoveDestinationLeft();
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                controller.MoveDestinationRight();
-            }
+            commandMap[inputManager.GetCommand()]();
         }
 
         private void FixedUpdate()
@@ -115,5 +134,8 @@ namespace Assets.Scripts.UnityCode
 
             return false;
         }
+
+        private void EmptyCommand()
+        { }
     }
 }
