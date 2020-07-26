@@ -3,11 +3,12 @@ using Assets.Scripts.UnityLogic.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityCode;
 using UnityEngine;
 
 namespace Assets.Scripts.UnityCode
 {
-    public class LevelEnemies : MonoBehaviour, ILevelEnemies
+    public class LevelEnemies : PausableBehaviour, ILevelEnemies
     {
         public GameState gameState;
         public Transform minBoundary;
@@ -25,11 +26,8 @@ namespace Assets.Scripts.UnityCode
         private void Start()
         {
             levelEnemyAI.SetLevelEnemies(this);
-
-            StartCoroutine("SpawnEnemyCars");
-
+            OnPlay();
         }
-
 
         private IEnumerator SpawnEnemyCars()
         {
@@ -106,7 +104,7 @@ namespace Assets.Scripts.UnityCode
             return enemyPools[enemyType].prefab.GetComponent<Enemy>();
         }
 
-        public Enemy InstantiateNewEnemy(int enemyType, bool active)
+        private Enemy InstantiateNewEnemy(int enemyType, bool active)
         {
             var enemy = Instantiate(enemyPools[enemyType].prefab);
             enemy.transform.parent = transform;
@@ -118,6 +116,16 @@ namespace Assets.Scripts.UnityCode
         public float GetTime(int enemyType)
         {
             return Time.time;
+        }
+
+        public override void OnPause()
+        {
+            StopAllCoroutines();
+        }
+
+        public override void OnPlay()
+        {
+            StartCoroutine("SpawnEnemyCars");
         }
     }
 }

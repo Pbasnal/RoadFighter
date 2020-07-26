@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.UnityLogic.ScriptableObjects;
+using UnityCode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,52 +10,52 @@ namespace Assets.Scripts.UnityCode
         public GameObject pauseMenu;
         public GameObject mainMenu;
         public GameObject inGameStats;
-
+        public GamePauseController pauseController;
         public GameState gameState;
 
         private Scene gameScene;
 
         private void Start()
         {
-            Time.timeScale = 0;
-            gameState.State = States.Pause;
-            pauseMenu.SetActive(false);
-            mainMenu.SetActive(true);
-            inGameStats.SetActive(false);
-            gameScene = SceneManager.GetActiveScene();
+            //Time.timeScale = 0;
+            //gameState.State = States.Pause;
+            //pauseMenu.SetActive(false);
+            //mainMenu.SetActive(true);
+            //inGameStats.SetActive(false);
+            //gameScene = SceneManager.GetActiveScene();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (Time.timeScale > 0)
-                {
-                    Pause();
-                }
-                else
-                {
-                    Resume();
-                }
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    if (Time.timeScale > 0)
+            //    {
+            //        Pause();
+            //    }
+            //    else
+            //    {
+            //        Resume();
+            //    }
+            //}
         }
 
         public void Pause()
         {
-            Time.timeScale = 0;
-            gameState.State = States.Pause;
-            pauseMenu.SetActive(true);
-            mainMenu.SetActive(false);
-            inGameStats.SetActive(false);
+            //Time.timeScale = 0;
+            //gameState.State = States.Pause;
+            //pauseMenu.SetActive(true);
+            //mainMenu.SetActive(false);
+            //inGameStats.SetActive(false);
         }
 
         public void Resume()
         {
-            Time.timeScale = 1;
-            gameState.State = States.Running;
-            pauseMenu.SetActive(false);
-            mainMenu.SetActive(false);
-            inGameStats.SetActive(true);
+            //Time.timeScale = 1;
+            //gameState.State = States.Running;
+            //pauseMenu.SetActive(false);
+            //mainMenu.SetActive(false);
+            //inGameStats.SetActive(true);
         }
 
         public void Play()
@@ -62,25 +63,26 @@ namespace Assets.Scripts.UnityCode
             pauseMenu.SetActive(false);
             mainMenu.SetActive(false);
             inGameStats.SetActive(true);
-            Time.timeScale = 1;
+            //Time.timeScale = 1;
+            pauseController.PlayGame();
             gameState.State = States.Running;
         }
 
         public void Quit()
         {
-            Application.Quit();
+            //Application.Quit();
         }
 
         public void MainMenu()
         {
-            Time.timeScale = 0;
-            gameState.State = States.NotStarted;
-            SceneManager.LoadScene(gameScene.name);
+            //Time.timeScale = 0;
+            //gameState.State = States.NotStarted;
+            //SceneManager.LoadScene(gameScene.name);
 
 
-            pauseMenu.SetActive(false);
-            mainMenu.SetActive(true);
-            inGameStats.SetActive(false);
+            //pauseMenu.SetActive(false);
+            //mainMenu.SetActive(true);
+            //inGameStats.SetActive(false);
         }
 
     }

@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.UnityLogic.ScriptableObjects;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.UnityLogic.ScriptableObjects;
 using TMPro;
+using UnityCode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UnityCode
 {
@@ -16,11 +16,18 @@ namespace Assets.Scripts.UnityCode
         public FloatValue levelSpeed;
         public FloatValue playerPoints;
         public FloatValue pointsMultiplier;
+        public GamePauseController pauseController;
 
         public TextMeshProUGUI pointsText;
         public TextMeshProUGUI healthText;
         public TextMeshProUGUI multiplierText;
         public TextMeshProUGUI levelSpeedText;
+
+        private void Awake()
+        {
+            pauseController.FindAllPauseableObjects();
+            pauseController.PauseGame();
+        }
 
         // Use this for initialization
         private void Start()
@@ -32,7 +39,7 @@ namespace Assets.Scripts.UnityCode
             StartCoroutine(IncreasePoints());
             StartCoroutine(IncreaseLevelSpeed());
 
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
 
         private IEnumerator IncreasePoints()
