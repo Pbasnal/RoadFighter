@@ -1,11 +1,12 @@
 ﻿using Assets.Scripts.UnityLogic.BehaviourInterface;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
+using UnityCode;
 using UnityEngine;
 
 namespace Assets.Scripts.UnityCode
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class Enemy : MonoBehaviour, IEnemy
+    public class Enemy : PausableBehaviour, IEnemy
     {
         public GameState gameState;
         public FloatValue levelSpeed;

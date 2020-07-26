@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.UnityCode;
+﻿using System.Collections.Generic;
+using Assets.Scripts.UnityCode;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
-using System.Collections.Generic;
-using System.Linq;
+using UnityCode;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class Roadgenerator : MonoBehaviour
+public class Roadgenerator : PausableBehaviour
 {
     public GameState gameState;
     public FloatValue levelSpeed;
