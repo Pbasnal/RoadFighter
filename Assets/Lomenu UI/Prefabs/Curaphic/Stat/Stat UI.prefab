@@ -158,7 +158,6 @@ GameObject:
   - component: {fileID: 8632462877196542474}
   - component: {fileID: 8632462877196542479}
   - component: {fileID: 8632462877196542476}
-  - component: {fileID: 8632462877196542477}
   m_Layer: 5
   m_Name: Stat UI
   m_TagString: Untagged
@@ -224,25 +223,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &8632462877196542477
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8632462877196542475}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b26cc3eba6674dc4588549feb99dfc2c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8632462877371700803
 GameObject:
   m_ObjectHideFlags: 0

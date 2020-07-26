@@ -2,13 +2,14 @@
 using Assets.Scripts.UnityLogic.ScriptableObjects;
 using System;
 using System.Collections.Generic;
+using UnityCode;
 using UnityEngine;
 using static Assets.Scripts.UnityLogic.ScriptableObjects.TransformMovementController;
 
 namespace Assets.Scripts.UnityCode
 {
     [RequireComponent(typeof(BoxCollider2D))]
-    public class Movement : MonoBehaviour, IMoveableActor
+    public class Movement : PausableBehaviour, IMoveableActor
     {
         // Inspector fields
         public GameState gameState;
@@ -16,6 +17,7 @@ namespace Assets.Scripts.UnityCode
         public int rightLimit;
         public InputManager keyboardInputManager;
         public InputManager touchInputManager;
+        public Animator animator;
 
         public float rayLength;
 
@@ -137,5 +139,15 @@ namespace Assets.Scripts.UnityCode
 
         private void EmptyCommand()
         { }
+
+        public override void OnPlay()
+        {
+            animator.enabled = false;
+        }
+
+        public override void OnPause()
+        {
+            animator.enabled = true;
+        }
     }
 }

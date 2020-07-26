@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
-using TMPro;
 using UnityCode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
