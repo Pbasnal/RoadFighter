@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
-using TMPro;
 using UnityCode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,11 +16,6 @@ namespace Assets.Scripts.UnityCode
         public FloatValue playerPoints;
         public FloatValue pointsMultiplier;
         public GamePauseController pauseController;
-
-        public TextMeshProUGUI pointsText;
-        public TextMeshProUGUI healthText;
-        public TextMeshProUGUI multiplierText;
-        public TextMeshProUGUI levelSpeedText;
 
         private void Awake()
         {
@@ -40,6 +34,11 @@ namespace Assets.Scripts.UnityCode
             StartCoroutine(IncreaseLevelSpeed());
 
             //Time.timeScale = 0;
+        }
+
+        public void StartGame()
+        {
+            pauseController.PlayGame();
         }
 
         private IEnumerator IncreasePoints()
@@ -67,14 +66,9 @@ namespace Assets.Scripts.UnityCode
         // Update is called once per frame
         private void FixedUpdate()
         {
-            pointsText.text = playerPoints.value.ToString();
-            healthText.text = playerHealth.value.ToString();
-            multiplierText.text = pointsMultiplier.value.ToString();
-            levelSpeedText.text = levelSpeed.value.ToString();
-
             if (playerHealth.value <= 0)
             {
-                Time.timeScale = 0;
+                pauseController.PauseGame();
                 StartCoroutine(RestartLevel());
             }
         }

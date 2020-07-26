@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.UnityLogic.ScriptableObjects;
 using UnityEngine;
 
 namespace UnityCode
 {
     public class GamePauseController : MonoBehaviour
     {
+        public GameState gameState;
+
         private PausableBehaviour[] pausableBehaviours;
 
         private void Awake()
@@ -19,6 +21,7 @@ namespace UnityCode
 
         public void PauseGame()
         {
+            gameState.State = States.Pause;
             foreach (PausableBehaviour behaviour in pausableBehaviours)
             {
                 behaviour.OnPause();
@@ -28,6 +31,8 @@ namespace UnityCode
 
         public void PlayGame()
         {
+            gameState.State = States.Running;
+
             foreach (PausableBehaviour behaviour in pausableBehaviours)
             {
                 behaviour.enabled = true;

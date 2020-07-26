@@ -31,6 +31,9 @@ namespace Assets.Scripts.UnityCode
 
         private IEnumerator SpawnEnemyCars()
         {
+            // throw enemies after delay
+            yield return new WaitForSecondsRealtime(5);
+
             while (true)
             {
                 if (gameState.State != States.Running)
