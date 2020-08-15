@@ -10,7 +10,7 @@ public class LUI_PAK : MonoBehaviour {
 
 	[Space]
 	[Header("Game specific animations")]
-	public AnimationPlayer pauseMenunAnim;
+	public AnimationPlayer mainMenuAnim;
 	public AnimationPlayer playerAnim;
 
 	void Start ()
@@ -20,13 +20,13 @@ public class LUI_PAK : MonoBehaviour {
 
     void Update ()
 	{
-		if (Input.anyKeyDown) 
+		if (Input.anyKeyDown || Input.touchCount > 0) 
 		{
 			animatorComponent.Play (animName);
 			mainCanvas.SetActive(true);
 			scriptObject.SetActive(false);
 
-			pauseMenunAnim.PlayFromBegining("Menu In");
+			mainMenuAnim.PlayFromBegining("Menu In");
 			playerAnim.PlayFromBegining("Move Out");
 		}
 	}

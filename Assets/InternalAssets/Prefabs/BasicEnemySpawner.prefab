@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8332742250548998152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8332742250548998153}
+  - component: {fileID: 8332742250548998158}
+  m_Layer: 0
+  m_Name: BasicEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8332742250548998153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332742250548998152}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.16, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8332742250686125729}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8332742250548998158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332742250548998152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18de5c62bc61d5b478901f8b1b81ebed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  bufferInYaxis: {fileID: 11400000, guid: 6f5377b2d3aa1c7458228400c44bb626, type: 2}
+  enemyCarsPool: {fileID: 11400000, guid: 32dda9f4a656f634c8be3e5bda975aca, type: 2}
+  carTravelLimit: {fileID: 8332742250686125729}
+  gameSpeed: {fileID: 11400000, guid: b492649ae408f1440a3ccaaf6b982111, type: 2}
+  waitTimeBeforeStarting: {fileID: 11400000, guid: b352876e1f55aed49bdff1d56ceb8cb9,
+    type: 2}
+  waitTimeBetweenEachSpawn: {fileID: 11400000, guid: c3db80159f85b27429c8af1f53733761,
+    type: 2}
+  distanceInWhichToAvoidCollision: 80
+  colOffset: 1.25
+  rowOffset: 2
+  carSpawnPatterns:
+  - {fileID: 11400000, guid: 05ce5f09d4dcd574aa6493f6657b7a06, type: 2}
+  - {fileID: 11400000, guid: 6a4ef40777a47e442af091f2126e9bb7, type: 2}
+  - {fileID: 11400000, guid: edaf42219f4b0374f86d4d361f2b6400, type: 2}
+--- !u!1 &8332742250686125728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8332742250686125729}
+  m_Layer: 0
+  m_Name: Car travel Limit
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8332742250686125729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332742250686125728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -21, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8332742250548998153}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

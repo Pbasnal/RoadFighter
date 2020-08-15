@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c14711f118dc424fbd4a9e7f0f48c6c, type: 3}
+  m_Name: EnemyCarsPool
+  m_EditorClassIdentifier: 
+  countToBeKeptForAllObjects: 5
+  objectsToPool:
+  - {fileID: 3949331523210133914, guid: 0cab704982eaf314f86b9526b481d12b, type: 3}
+  - {fileID: 5837001588333113386, guid: 3c7d282bbb5accc4faec92b93ed61fcb, type: 3}
+  - {fileID: 4177296826920972015, guid: 608b5b4a2c94fef4685a8c53da6c12ad, type: 3}
