@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - RoadSection
   - Enemy
+  - Roadsection
   layers:
   - Default
   - TransparentFX
@@ -15,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - Vehicles
   - Road
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 
@@ -43,6 +43,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Vehicles
-    uniqueID: 64129185
+  - name: Road
+    uniqueID: 3012513909
+    locked: 0
+  - name: Enemies
+    uniqueID: 3431470371
+    locked: 0
+  - name: Player
+    uniqueID: 3258807837
+    locked: 0
+  - name: PauseMenu Ui
+    uniqueID: 3219574981
+    locked: 0
+  - name: Gameplay UI
+    uniqueID: 16752171
+    locked: 0
+  - name: Overlay UI
+    uniqueID: 2019983975
     locked: 0
