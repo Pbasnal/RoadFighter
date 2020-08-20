@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.UnityLogic.BehaviourInterface;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.UnityLogic.BehaviourInterface;
 using UnityEngine;
 
 namespace Assets.Scripts.UnityLogic.ScriptableObjects
 {
-    [CreateAssetMenu(menuName = "Controllers/Transform", fileName = "TransformController", order = 51)]
+    [CreateAssetMenu(menuName = "Controllers/Transform", fileName = "TransformMovementController", order = 51)]
     public class TransformMovementController : MovementContoller
     {
         public Direction prevDirection { get; set; }
@@ -169,13 +169,6 @@ namespace Assets.Scripts.UnityLogic.ScriptableObjects
             dests = new Queue<Vector2>();
             startingPosition = actor.CurrentPosition;
             prevDirection = Direction.None;
-        }
-
-        public enum Direction
-        {
-            None = 0,
-            Left = -1,
-            Right = 1
         }
     }
 }

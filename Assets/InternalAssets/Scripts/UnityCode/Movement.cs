@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using Assets.Scripts.UnityLogic.BehaviourInterface;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
-using UnityCode.CameraScripts;
 using UnityCode.Managers;
 using UnityEngine;
 using UnityLogic.BehaviourInterface;
-using static Assets.Scripts.UnityLogic.ScriptableObjects.TransformMovementController;
-using static UnityCode.CameraScripts.CameraShaker;
 
 namespace Assets.Scripts.UnityCode
 {
@@ -20,26 +17,33 @@ namespace Assets.Scripts.UnityCode
         public ScriptableInputManager keyboardInputManager;
         public ScriptableInputManager touchInputManager;
         public BehaviourInputManager fingersInput;
-        public Animator animator;
-        
         public GameState gameState;
-        public int leftLimit;
-        public int rightLimit;
 
-        public float rayLength;
+        [Space]
+        [Header("GameObject components")]
+        public Animator animator;
+        public new Rigidbody2D rigidbody;
 
-        public float speed;
-        public int moveUnits;
-
-        public Transform top;
-        public Transform bottom;
-
+        [Space]
+        [Header("External components")]
         public MovementContoller controller;
         public GameObject unitLocator;
 
+        [Space]
+        [Header("Movement Settings")]
+        public int leftLimit;
+        public int rightLimit;
+        public int moveUnits;
+        public float speed;
+        
+        [Space]
+        [Header("Ray hit check Settings")]
+        public float rayLength;
+        public Transform top;
+        public Transform bottom;
         public LayerMask layerMask;
 
-        // IMoveable fields
+        // IMoveable fields and properties
         public Vector2 CurrentPosition
         {
             get { return transform.position; }
@@ -53,6 +57,8 @@ namespace Assets.Scripts.UnityCode
         private IInputManager inputManager;
         private IDictionary<InputCommand, Action> commandMap;
         private AudioManager _audioManager;
+
+        private Vector3 destination;
 
         public RaycastHit2D Raycast(Vector2 origin, Vector2 direction, float distance, int layerMask)
         {
@@ -92,24 +98,22 @@ namespace Assets.Scripts.UnityCode
         // Update is called once per frame
         private void Update()
         {
-            if (gameState.State != States.Running)
-            {
-                return;
-            }
-
             commandMap[inputManager.GetCommand()]();
             controller.Move();
+
+            if (Mathf.Pow(destination.x - transform.position.x, 2) < 0.001f)
+            {
+                destination = transform.position;
+            }
         }
 
         private void FixedUpdate()
         {
-            if (gameState.State != States.Running)
-            {
-                return;
-            }
+            var newPos= Vector3.Lerp(transform.position, destination, Time.fixedDeltaTime * speed);
+            rigidbody.MovePosition(newPos);
 
-            controller.SetDirectionBlocked(Direction.Left, CheckLeftHit());
-            controller.SetDirectionBlocked(Direction.Right, CheckRightHit());
+            //controller.SetDirectionBlocked(Direction.Left, CheckLeftHit());
+            //controller.SetDirectionBlocked(Direction.Right, CheckRightHit());
         }
 
         private bool CheckLeftHit()
@@ -133,12 +137,14 @@ namespace Assets.Scripts.UnityCode
         private bool CheckRightHit()
         {
             Debug.DrawLine(top.position, new Vector2(top.position.x + rayLength, top.position.y), Color.red, 1);
+            // top hit detection
             var rhit = Physics2D.Raycast(top.position, Vector2.right, rayLength, layerMask);
             if (rhit.collider != null && rhit.collider.tag.Equals("Enemy"))
             {
                 return true;
             }
 
+            // bottom hit detection
             rhit = Physics2D.Raycast(bottom.position, Vector2.right, rayLength, layerMask);
             if (rhit.collider != null && rhit.collider.tag.Equals("Enemy"))
             {
@@ -173,6 +179,11 @@ namespace Assets.Scripts.UnityCode
                 return;
             }
             _audioManager.StopAudio("PlayerCar");
+        }
+
+        public void MoveTo(Vector2 destination)
+        {
+            this.destination = destination;
         }
     }
 }

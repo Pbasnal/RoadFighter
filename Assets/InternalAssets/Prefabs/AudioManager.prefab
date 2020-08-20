@@ -44,8 +44,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Future
-    clip: {fileID: 8300000, guid: e759c5c09203a2e428d4e973d4a2fcdb, type: 3}
+  - name: Menu
+    clip: {fileID: 8300000, guid: 7996871ef42caac47a993a722f18f5b5, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+  - name: InGame
+    clip: {fileID: 8300000, guid: ec066b4eab47d7e42a33c0759620ff35, type: 3}
+    volume: 0.3
+    pitch: 0.6
+    loop: 1
+  - name: PlayerCar
+    clip: {fileID: 8300000, guid: aab9893499f2db14d982ea3c214622ec, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+  - name: EnemyCar
+    clip: {fileID: 8300000, guid: bb683044c23cd50438d45fe475089c84, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+  - name: Collision
+    clip: {fileID: 8300000, guid: 8b3f676fe7b41044495a2964396b8ba3, type: 3}
     volume: 1
     pitch: 1
     loop: 0

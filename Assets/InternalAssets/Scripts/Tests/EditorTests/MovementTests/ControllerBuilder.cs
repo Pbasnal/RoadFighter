@@ -34,7 +34,7 @@ namespace MovementTests
         public ControllerScenario MoveTillDetination(out float deltaTime)
         {
             deltaTime = 0.0f;
-            while (controller.prevDirection != TransformMovementController.Direction.None)
+            while (controller.prevDirection != Direction.None)
             {
                 controller.Move();
                 deltaTime += Time.deltaTime;
@@ -46,7 +46,7 @@ namespace MovementTests
         public ControllerScenario MoveFor(float time)
         {
             var deltaTime = 0.0f;
-            while (controller.prevDirection != TransformMovementController.Direction.None 
+            while (controller.prevDirection != Direction.None 
                 && deltaTime < time)
             {
                 controller.Move();

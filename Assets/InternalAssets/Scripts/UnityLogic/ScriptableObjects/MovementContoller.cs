@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.UnityLogic.BehaviourInterface;
 using UnityEngine;
-using static Assets.Scripts.UnityLogic.ScriptableObjects.TransformMovementController;
 
 namespace Assets.Scripts.UnityLogic.ScriptableObjects
 {
@@ -13,4 +12,11 @@ namespace Assets.Scripts.UnityLogic.ScriptableObjects
         public abstract void Move();
         public abstract void SetDirectionBlocked(Direction direction, bool blocked);
     }
+
+    //public class Direction
+    //{
+    //    public const int Left = -1;
+    //    public const int None = 0;
+    //    public const int Right = 1;
+    //}
 }
