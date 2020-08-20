@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.UnityLogic.ScriptableObjects;
+using UnityCode.CameraScripts;
 using UnityCode.EnemyCar;
 using UnityCode.Managers;
 using UnityEngine;
+using static UnityCode.CameraScripts.CameraShaker;
 
 namespace Assets.Scripts.UnityCode
 {
@@ -30,11 +32,13 @@ namespace Assets.Scripts.UnityCode
         private float msTimeSinceLastDamage = 0;
         private float currentHealth;
         private AudioManager _audioManager;
-
+        
         private void Start()
         {
             _audioManager = FindObjectOfType<AudioManager>();
             ResetDamageTaken();
+
+            //shakeParameters = new ShakeParameters(5f, 10, 0.3f, 0, 0.3f);
         }
 
         public void ResetDamageTaken()
@@ -57,7 +61,6 @@ namespace Assets.Scripts.UnityCode
             msTimeSinceLastDamage = 0;
 
             nearMissDetector.ResetMultiplierValue();
-            //Handheld.Vibrate();
 
             if (currentHealth < 0)
             {
@@ -80,7 +83,6 @@ namespace Assets.Scripts.UnityCode
             playerHealth.value -= continousCollisionDamage;
             currentHealth -= continousCollisionDamageToTake;
             msTimeSinceLastDamage = 0;
-            //Handheld.Vibrate();
 
             if (currentHealth < 0)
             {
