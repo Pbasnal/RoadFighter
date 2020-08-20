@@ -18,8 +18,6 @@ namespace Assets.Scripts.UnityLogic.ScriptableObjects
 
         private IMoveableActor actor;
 
-        public override Vector2 UnitLocation { get; }
-
         public override void Move()
         {
             if (_inputCollection.Count == 0)
@@ -37,25 +35,6 @@ namespace Assets.Scripts.UnityLogic.ScriptableObjects
             _inputCollection.Clear();
         }
 
-        public override void SetDirectionBlocked(Direction dir, bool isBlocked)
-        {
-            if (!isBlocked) 
-            {
-                return;
-            }
-                
-            if (dir == Direction.Left)
-            {
-                _inputCollection.Add(Direction.Right);
-                return;
-            }
-            if (dir == Direction.Right)
-            {
-                _inputCollection.Add(Direction.Left);
-                return;
-            }
-        }
-
         public override void MoveDestinationLeft()
         {
             _inputCollection.Add(Direction.Left);
@@ -69,8 +48,6 @@ namespace Assets.Scripts.UnityLogic.ScriptableObjects
         public override void SetActor(IMoveableActor actor)
         {
             this.actor = actor;
-            startingPosition = actor.CurrentPosition;
-            prevDirection = Direction.None;
             _inputCollection = new List<Direction>();
             dest = new Vector2();
             lanePositionToMoveTo = actor.CurrentPosition.x;

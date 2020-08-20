@@ -82,8 +82,6 @@ namespace Assets.Scripts.UnityCode
         private void Start()
         {
             controller.SetActor(this);
-            controller.SetDirectionBlocked(Direction.Left, false);
-            controller.SetDirectionBlocked(Direction.Right, false);
 
             commandMap = new Dictionary<InputCommand, Action>
             {
