@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Assets.Scripts.UnityLogic.BehaviourInterface;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
+using UnityCode.CameraScripts;
 using UnityCode.Managers;
 using UnityEngine;
 using UnityLogic.BehaviourInterface;
 using static Assets.Scripts.UnityLogic.ScriptableObjects.TransformMovementController;
+using static UnityCode.CameraScripts.CameraShaker;
 
 namespace Assets.Scripts.UnityCode
 {
@@ -13,13 +15,16 @@ namespace Assets.Scripts.UnityCode
     public class Movement : APausableBehaviour, IMoveableActor
     {
         // Inspector fields
-        public GameState gameState;
-        public int leftLimit;
-        public int rightLimit;
+        [Space]
+        [Header("Game components to refer")]
         public ScriptableInputManager keyboardInputManager;
         public ScriptableInputManager touchInputManager;
         public BehaviourInputManager fingersInput;
         public Animator animator;
+        
+        public GameState gameState;
+        public int leftLimit;
+        public int rightLimit;
 
         public float rayLength;
 

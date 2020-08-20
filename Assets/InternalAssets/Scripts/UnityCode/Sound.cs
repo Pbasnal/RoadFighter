@@ -22,7 +22,7 @@ namespace UnityCode
             set
             {
                 _source = value;
-                _source.volume = volume;
+                _source.volume = 0;// volume;
                 _source.pitch = pitch;
                 _source.loop = loop;
                 _source.clip = clip;
