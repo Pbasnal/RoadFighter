@@ -49,8 +49,8 @@ namespace UnityCode.PlayerEffects
                 headOnCollisionParticles.Play();
             }
             Handheld.Vibrate();
-            //cameraShaker.ShakeCamera(shakeParameters);
-            //cameraShaker.CameraDragTo(0.95f, 0.5f);
+            cameraShaker.ShakeCamera(shakeParameters);
+            cameraShaker.CameraDragTo(0.95f, 0.5f);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -69,7 +69,7 @@ namespace UnityCode.PlayerEffects
                 return;
             }
 
-            //cameraShaker.ResetCameraScreenPosition(duration: 1);
+            cameraShaker.ResetCameraScreenPosition(duration: 1);
         }
     }
 }
