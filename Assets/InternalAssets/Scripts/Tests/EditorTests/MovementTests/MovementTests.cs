@@ -16,10 +16,10 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(-moveUnits, actor.CurrentPosition.x);
         }
@@ -32,12 +32,12 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime)
+                    .MoveTillDestination(out var deltaTime)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out deltaTime);
+                    .MoveTillDestination(out deltaTime);
 
             Assert.AreEqual(0, actor.CurrentPosition.x);
         }
@@ -50,11 +50,11 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.IsTrue(deltaTime > 2 && deltaTime < 3);
             Assert.AreEqual(-moveUnits * 2, actor.CurrentPosition.x);
@@ -68,13 +68,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
                     .MoveFor(0.9f)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(0, actor.CurrentPosition.x);
         }
@@ -87,13 +87,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
                     .MoveFor(1.5f)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(-moveUnits, actor.CurrentPosition.x);
         }
@@ -106,10 +106,10 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(moveUnits, actor.CurrentPosition.x);
         }
@@ -122,12 +122,12 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime)
+                    .MoveTillDestination(out var deltaTime)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out deltaTime);
+                    .MoveTillDestination(out deltaTime);
 
             Assert.AreEqual(0, actor.CurrentPosition.x);
         }
@@ -140,11 +140,11 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.IsTrue(deltaTime > 2 && deltaTime < 3);
             Assert.AreEqual(moveUnits * 2, actor.CurrentPosition.x);
@@ -158,13 +158,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
                     .MoveFor(0.9f)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(0, actor.CurrentPosition.x);
         }
@@ -177,13 +177,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
                     .MoveFor(1.5f)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(moveUnits, actor.CurrentPosition.x);
         }
@@ -208,10 +208,10 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(-moveUnits + startingPosition.x, actor.CurrentPosition.x);
         }
@@ -224,12 +224,12 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime)
+                    .MoveTillDestination(out var deltaTime)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out deltaTime);
+                    .MoveTillDestination(out deltaTime);
 
             Assert.AreEqual(startingPosition.x, actor.CurrentPosition.x);
         }
@@ -242,11 +242,11 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.IsTrue(deltaTime > 2 && deltaTime < 3);
             Assert.AreEqual(-moveUnits * 2 + startingPosition.x, actor.CurrentPosition.x);
@@ -260,13 +260,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
                     .MoveFor(0.9f)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(startingPosition.x, actor.CurrentPosition.x);
         }
@@ -279,13 +279,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
                     .MoveFor(1.5f)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(-moveUnits + startingPosition.x, actor.CurrentPosition.x);
         }
@@ -298,10 +298,10 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(moveUnits + startingPosition.x, actor.CurrentPosition.x);
         }
@@ -314,12 +314,12 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime)
+                    .MoveTillDestination(out var deltaTime)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out deltaTime);
+                    .MoveTillDestination(out deltaTime);
 
             Assert.AreEqual(startingPosition.x, actor.CurrentPosition.x);
         }
@@ -332,11 +332,11 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.IsTrue(deltaTime > 2 && deltaTime < 3);
             Assert.AreEqual(moveUnits * 2 + startingPosition.x, actor.CurrentPosition.x);
@@ -350,13 +350,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
                     .MoveFor(0.9f)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(startingPosition.x, actor.CurrentPosition.x);
         }
@@ -369,13 +369,13 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            TransformMovementController controller =
+            RigidbodyController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
                     .MoveFor(1.5f)
                     .MoveDestinationLeft()
-                    .MoveTillDetination(out var deltaTime);
+                    .MoveTillDestination(out var deltaTime);
 
             Assert.AreEqual(moveUnits + startingPosition.x, actor.CurrentPosition.x);
         }

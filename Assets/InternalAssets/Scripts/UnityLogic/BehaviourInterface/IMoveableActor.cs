@@ -9,5 +9,7 @@ namespace Assets.Scripts.UnityLogic.BehaviourInterface
         int MoveUnits { get; }
         Vector2 CurrentPosition { get; set; }
         float Speed { get; }
+
+        void MoveTo(Vector2 destination);
     }
 }

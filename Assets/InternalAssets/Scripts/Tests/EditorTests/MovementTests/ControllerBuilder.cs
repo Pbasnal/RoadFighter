@@ -6,11 +6,11 @@ namespace MovementTests
 {
     public class ControllerScenario
     {
-        private TransformMovementController controller;
+        private RigidbodyController controller;
 
         public ControllerScenario()
         {
-            controller = ScriptableObject.CreateInstance<TransformMovementController>();
+            controller = ScriptableObject.CreateInstance<RigidbodyController>();
         }
 
         public ControllerScenario ForActor(IMoveableActor actor)
@@ -31,14 +31,11 @@ namespace MovementTests
             return this;
         }
 
-        public ControllerScenario MoveTillDetination(out float deltaTime)
+        public ControllerScenario MoveTillDestination(out float deltaTime)
         {
             deltaTime = 0.0f;
-            while (controller.prevDirection != TransformMovementController.Direction.None)
-            {
-                controller.Move();
-                deltaTime += Time.deltaTime;
-            }
+            
+            //while(controller.)
 
             return this;
         }
@@ -46,17 +43,11 @@ namespace MovementTests
         public ControllerScenario MoveFor(float time)
         {
             var deltaTime = 0.0f;
-            while (controller.prevDirection != TransformMovementController.Direction.None 
-                && deltaTime < time)
-            {
-                controller.Move();
-                deltaTime += Time.deltaTime;
-            }
-
+            
             return this;
         }
 
-        public static implicit operator TransformMovementController(ControllerScenario builder)
+        public static implicit operator RigidbodyController(ControllerScenario builder)
         {
             return builder.controller;
         }
