@@ -39,7 +39,6 @@ namespace UnityCode.Managers
 
         private void Start()
         {
-            Debug.Log("Playing audio");
             PlayAudio("Menu");
         }
 

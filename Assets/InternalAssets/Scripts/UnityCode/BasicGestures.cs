@@ -28,6 +28,8 @@ namespace LockdownGames.Assets._Project.Systems.InputSystem
         private RotateGestureRecognizer rotateGesture;
         private LongPressGestureRecognizer longPressGesture;
 
+        public float TouchStartTime;
+
         private void Awake()
         {
             if (fingersScript == null)
@@ -154,21 +156,22 @@ namespace LockdownGames.Assets._Project.Systems.InputSystem
 
             var worldFocusPoint = camera.ScreenToWorldPoint(new Vector3(gesture.FocusX, gesture.FocusY, camera.orthographicSize));
             doubleTapGestureCallback?.Invoke(gesture, worldFocusPoint, DetectObject(worldFocusPoint));
-        }        
+        }
 
         private void SwipeGestureCallback(GestureRecognizer gesture)
         {
-            Debug.Log(string.Format("Swiping s:{0}  dx:{1}  dy:{2}", gesture.Speed, gesture.DistanceX, gesture.DistanceY));
-            if (gesture.State != GestureRecognizerState.Ended)
+            if (gesture.Speed == 0)// || Mathf.Abs(gesture.DeltaX) < swipeResponseThreshold)
             {
                 return;
             }
+            TouchStartTime = fingersScript.TouchStartTime;
+            //Debug.Log(string.Format("Swiping s:{0}  dx:{1}  dy:{2}", gesture.Speed, gesture.DistanceX, gesture.DistanceY));
 
-            Debug.Log(string.Format("Swiped s:{0}  dx:{1}  dy:{2}", gesture.Speed, gesture.DistanceX, gesture.DistanceY));
             var startVec = new Vector3(gesture.StartFocusX, gesture.StartFocusX, camera.nearClipPlane);
             var endVec = new Vector3(gesture.StartFocusX + gesture.DeltaX, gesture.StartFocusY + gesture.DeltaY, camera.nearClipPlane);
             var startPosition = camera.ScreenToWorldPoint(startVec);
             var endPosition = camera.ScreenToWorldPoint(endVec);
+
             swipeGestureCallback?.Invoke(gesture, startPosition, endPosition, null);
         }
 
@@ -178,7 +181,7 @@ namespace LockdownGames.Assets._Project.Systems.InputSystem
             {
                 return;
             }
-        }       
+        }
 
         private void ScaleGestureCallback(GestureRecognizer gesture)
         {
@@ -186,7 +189,7 @@ namespace LockdownGames.Assets._Project.Systems.InputSystem
             {
                 return;
             }
-        }       
+        }
 
         private void RotateGestureCallback(GestureRecognizer gesture)
         {

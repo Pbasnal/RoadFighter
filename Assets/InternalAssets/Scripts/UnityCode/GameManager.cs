@@ -20,6 +20,8 @@ namespace Assets.Scripts.UnityCode
         {
             pauseController.FindAllPauseableObjects();
             pauseController.PauseGame();
+
+            //Application.targetFrameRate = 60;
         }
 
         // Use this for initialization

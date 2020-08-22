@@ -57,6 +57,9 @@ namespace UnityCode.CameraScripts
                         currentDiff / total);
                 yield return null;
             }
+            // calculation depends on deltaTime. That causes amplitude to have some trailing value
+            // setting it to 0 to make sure that amplitude is set to zero
+            cinemachinePerlin.m_AmplitudeGain = 0;
         }
 
         public void CameraDragTo(float screenY, float duration)

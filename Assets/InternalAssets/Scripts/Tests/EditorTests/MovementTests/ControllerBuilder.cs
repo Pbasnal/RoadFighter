@@ -6,11 +6,11 @@ namespace MovementTests
 {
     public class ControllerScenario
     {
-        private RigidbodyController controller;
+        private PlayerMovementController controller;
 
         public ControllerScenario()
         {
-            controller = ScriptableObject.CreateInstance<RigidbodyController>();
+            controller = ScriptableObject.CreateInstance<PlayerMovementController>();
         }
 
         public ControllerScenario ForActor(IMoveableActor actor)
@@ -47,7 +47,7 @@ namespace MovementTests
             return this;
         }
 
-        public static implicit operator RigidbodyController(ControllerScenario builder)
+        public static implicit operator PlayerMovementController(ControllerScenario builder)
         {
             return builder.controller;
         }

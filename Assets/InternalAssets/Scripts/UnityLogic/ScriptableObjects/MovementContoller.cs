@@ -8,6 +8,6 @@ namespace Assets.Scripts.UnityLogic.ScriptableObjects
         public abstract void SetActor(IMoveableActor actor);
         public abstract void MoveDestinationLeft();
         public abstract void MoveDestinationRight();
-        public abstract void Move();
+        public abstract Vector3 GetDestination();
     }
 }
