@@ -17,6 +17,8 @@ namespace DigitalRubyShared
 {
     public class FingersScript : MonoBehaviour
     {
+        public float TouchStartTime;
+
         [Tooltip("Whether to enable Unity input multi-touch automatically.")]
         public bool EnableMultiTouch = true;
 
@@ -422,6 +424,7 @@ namespace DigitalRubyShared
             // process each touch in the Unity list of touches
             for (int i = 0; i < UnityEngine.Input.touchCount; i++)
             {
+                TouchStartTime = Time.time;
                 Touch t = UnityEngine.Input.GetTouch(i);
                 GestureTouch g = GestureTouchFromTouch(ref t);
                 FingersProcessTouch(ref g);
@@ -788,7 +791,7 @@ namespace DigitalRubyShared
             if (DeviceInfo.PixelsPerInch > 0)
             {
                 DeviceInfo.UnitMultiplier = DeviceInfo.PixelsPerInch;
-                Debug.Log("Detected DPI of " + DeviceInfo.PixelsPerInch);
+                //Debug.Log("Detected DPI of " + DeviceInfo.PixelsPerInch);
             }
             else
             {

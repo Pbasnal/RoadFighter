@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Assets.Scripts.UnityLogic.BehaviourInterface;
 using Assets.Scripts.UnityLogic.ScriptableObjects;
+using TMPro;
 using UnityCode.Managers;
 using UnityEngine;
 using UnityLogic.BehaviourInterface;
@@ -35,13 +37,6 @@ namespace Assets.Scripts.UnityCode
         public int rightLimit;
         public int moveUnits;
         public float speed;
-        
-        [Space]
-        [Header("Ray hit check Settings")]
-        public float rayLength;
-        public Transform top;
-        public Transform bottom;
-        public LayerMask layerMask;
 
         // IMoveable fields and properties
         public Vector2 CurrentPosition
@@ -49,16 +44,12 @@ namespace Assets.Scripts.UnityCode
             get { return transform.position; }
             set { transform.position = value; }
         }
-        public float Speed => speed;
-        public int MoveUnits => moveUnits;
-        public int LeftLimit => leftLimit;
-        public int RightLimit => rightLimit;
+
+        public Vector3 Destination { get; set; }
 
         private IInputManager inputManager;
         private IDictionary<InputCommand, Action> commandMap;
         private AudioManager _audioManager;
-
-        private Vector3 destination;
 
         public RaycastHit2D Raycast(Vector2 origin, Vector2 direction, float distance, int layerMask)
         {
@@ -67,14 +58,14 @@ namespace Assets.Scripts.UnityCode
 
         private void Awake()
         {
-            Debug.Log("Application platform " + Application.platform);
+            //Debug.Log("Application platform " + Application.platform);
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                inputManager = fingersInput;
+                inputManager = fingersInput;// touchInputManager;
             }
             else
             {
-                inputManager = keyboardInputManager;
+                inputManager = fingersInput;// touchInputManager;// keyboardInputManager;
             }
         }
 
@@ -91,66 +82,17 @@ namespace Assets.Scripts.UnityCode
             };
 
             _audioManager = FindObjectOfType<AudioManager>();
+            Destination = transform.position;
         }
 
         // Update is called once per frame
         private void Update()
         {
             commandMap[inputManager.GetCommand()]();
-            controller.Move();
-
-            if (Mathf.Pow(destination.x - transform.position.x, 2) < 0.001f)
-            {
-                destination = transform.position;
-            }
+            Destination = controller.GetDestination();
+            transform.position = Vector3.Lerp(transform.position, Destination, speed * Time.deltaTime);
         }
 
-        private void FixedUpdate()
-        {
-            var newPos= Vector3.Lerp(transform.position, destination, Time.fixedDeltaTime * speed);
-            rigidbody.MovePosition(newPos);
-
-            //controller.SetDirectionBlocked(Direction.Left, CheckLeftHit());
-            //controller.SetDirectionBlocked(Direction.Right, CheckRightHit());
-        }
-
-        private bool CheckLeftHit()
-        {
-            Debug.DrawLine(top.position, new Vector2(top.position.x - rayLength, top.position.y), Color.red, 1);
-            var lhit = Physics2D.Raycast(top.position, Vector2.left, rayLength, layerMask);
-            if (lhit.collider != null && lhit.collider.tag.Equals("Enemy"))
-            {
-                return true;
-            }
-
-            lhit = Physics2D.Raycast(bottom.position, Vector2.left, rayLength, layerMask);
-            if (lhit.collider != null && lhit.collider.tag.Equals("Enemy"))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool CheckRightHit()
-        {
-            Debug.DrawLine(top.position, new Vector2(top.position.x + rayLength, top.position.y), Color.red, 1);
-            // top hit detection
-            var rhit = Physics2D.Raycast(top.position, Vector2.right, rayLength, layerMask);
-            if (rhit.collider != null && rhit.collider.tag.Equals("Enemy"))
-            {
-                return true;
-            }
-
-            // bottom hit detection
-            rhit = Physics2D.Raycast(bottom.position, Vector2.right, rayLength, layerMask);
-            if (rhit.collider != null && rhit.collider.tag.Equals("Enemy"))
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         private void EmptyCommand()
         { }
@@ -177,11 +119,6 @@ namespace Assets.Scripts.UnityCode
                 return;
             }
             _audioManager.StopAudio("PlayerCar");
-        }
-
-        public void MoveTo(Vector2 destination)
-        {
-            this.destination = destination;
         }
     }
 }

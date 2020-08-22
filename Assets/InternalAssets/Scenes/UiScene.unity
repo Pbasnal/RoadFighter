@@ -2823,6 +2823,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicEnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8332742250548998152, guid: d809fada218ff51468b37d727b8a0a33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8332742250548998153, guid: d809fada218ff51468b37d727b8a0a33,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3618,7 +3623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355301093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000011920929, y: 8.64397, z: -10}
+  m_LocalPosition: {x: -0.6009998, y: 8.72797, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 52484377}
@@ -5921,6 +5926,11 @@ PrefabInstance:
       propertyPath: shakeParameters.smoothOutTime
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2185433489815965458, guid: 1037f84560553f5499a5ac4ba8f15954,
+        type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2260480162627357870, guid: 1037f84560553f5499a5ac4ba8f15954,
         type: 3}
       propertyPath: cameraShaker
@@ -5941,15 +5951,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9193235362172355578, guid: 1037f84560553f5499a5ac4ba8f15954,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9193235362172355580, guid: 1037f84560553f5499a5ac4ba8f15954,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.601
       objectReference: {fileID: 0}
     - target: {fileID: 9193235362172355580, guid: 1037f84560553f5499a5ac4ba8f15954,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 5.084
       objectReference: {fileID: 0}
     - target: {fileID: 9193235362172355580, guid: 1037f84560553f5499a5ac4ba8f15954,
         type: 3}
@@ -7905,6 +7920,11 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 20381032967348000}
+    - target: {fileID: 6287064905788894699, guid: 18f5951a9314733458b59d5a810509b4,
+        type: 3}
+      propertyPath: swipeResponseThreshold
+      value: 0.22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18f5951a9314733458b59d5a810509b4, type: 3}
 --- !u!114 &857046539 stripped
@@ -23086,7 +23106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469362775116454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000011920929, y: 8.64397, z: -10}
+  m_LocalPosition: {x: -0.6009998, y: 8.72797, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4546920211727902}

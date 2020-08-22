@@ -21,13 +21,11 @@ namespace MovementTests
 
         public ActorBuilder WithSpeed(float speed)
         {
-            actor.Speed.Returns(speed);
             return this;
         }
 
         public ActorBuilder WhichCanMoveUnits(int units)
         {
-            actor.MoveUnits.Returns(units);
             return this;
         }
 

@@ -16,7 +16,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveTillDestination(out var deltaTime);
@@ -32,7 +32,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveTillDestination(out var deltaTime)
@@ -50,7 +50,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
@@ -68,7 +68,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
@@ -87,7 +87,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
@@ -106,7 +106,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveTillDestination(out var deltaTime);
@@ -122,7 +122,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveTillDestination(out var deltaTime)
@@ -140,7 +140,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
@@ -158,7 +158,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
@@ -177,7 +177,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(new Vector2(0, 0)).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
@@ -208,7 +208,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveTillDestination(out var deltaTime);
@@ -224,7 +224,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveTillDestination(out var deltaTime)
@@ -242,7 +242,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
@@ -260,7 +260,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
@@ -279,7 +279,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationLeft()
                     .MoveDestinationLeft()
@@ -298,7 +298,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveTillDestination(out var deltaTime);
@@ -314,7 +314,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveTillDestination(out var deltaTime)
@@ -332,7 +332,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
@@ -350,7 +350,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
@@ -369,7 +369,7 @@ namespace MovementTests
                 .WhichCanMoveUnits(moveUnits)
                 .At(startingPosition).Build();
 
-            RigidbodyController controller =
+            PlayerMovementController controller =
                 BuildA.ControllerScenario.ForActor(actor)
                     .MoveDestinationRight()
                     .MoveDestinationRight()
