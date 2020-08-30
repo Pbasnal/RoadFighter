@@ -140,7 +140,7 @@ namespace SpawnSystem.UnityCode
                     var car = (ACarType)enemyCarsPool.LockObjectForRecycling(pattern.rows[r].cells[c].Id);
                     if (car == null)
                     {
-                        Debug.Log("No more cars left in the pool");
+                        //Debug.Log("No more cars left in the pool");
                         continue;
                     }
 

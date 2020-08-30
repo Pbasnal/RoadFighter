@@ -15,7 +15,6 @@ namespace UnityCode
         public float pitch;
         public bool loop;
 
-        [HideInInspector]
         public AudioSource Source
         {
             get { return _source; }
@@ -30,5 +29,10 @@ namespace UnityCode
         }
 
         private AudioSource _source;
+
+        public void ToggleMuteAudio()
+        {
+            _source.mute = !_source.mute;
+        }
     }
 }

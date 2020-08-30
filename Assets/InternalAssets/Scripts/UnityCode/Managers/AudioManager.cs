@@ -83,5 +83,13 @@ namespace UnityCode.Managers
             StopAudio("InGame");
             PlayAudio("Menu");
         }
+
+        public void ToggelMuteAllAudio()
+        {
+            foreach (var sound in soundsMap.Values)
+            {
+                sound.ToggleMuteAudio();
+            }
+        }
     }
 }

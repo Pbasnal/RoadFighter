@@ -1,12 +1,12 @@
 ﻿using Assets.Scripts.UnityLogic.ScriptableObjects;
-using TMPro;
-using UnityEngine;
+using UnityEngine.UI;
+using UnityLogic.BehaviourInterface;
 
 namespace Assets.Scripts.UnityCode
 {
-    public class PlayerStatTextUI : MonoBehaviour
+    public class PlayerStatTextUI : FloatValueListener
     {
-        public TextMeshProUGUI textField;
+        public Text textField;
         public FloatValue fieldValue;
 
         private void Update()

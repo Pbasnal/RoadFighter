@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f7108ebc4609f4592aac1bcab6576d, type: 3}
+  m_Name: SpawnPattern 7
+  m_EditorClassIdentifier: 
+  rows:
+  - cells:
+    - {fileID: 8948314913961646432, guid: 608b5b4a2c94fef4685a8c53da6c12ad, type: 3}
+    - {fileID: 1479100482568481144, guid: 10e6e19d80b5a0548ba199a1c52293d7, type: 3}
+    - {fileID: 0}
+  - cells:
+    - {fileID: 8948314913961646432, guid: 608b5b4a2c94fef4685a8c53da6c12ad, type: 3}
+    - {fileID: 0}
+    - {fileID: 8948314913961646432, guid: 608b5b4a2c94fef4685a8c53da6c12ad, type: 3}
+  - cells:
+    - {fileID: 8948314913961646432, guid: 608b5b4a2c94fef4685a8c53da6c12ad, type: 3}
+    - {fileID: 1463125429935363151, guid: 0cab704982eaf314f86b9526b481d12b, type: 3}
+    - {fileID: 0}
