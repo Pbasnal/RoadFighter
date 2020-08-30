@@ -1,10 +1,10 @@
 ﻿using Assets.Scripts.UnityLogic.ScriptableObjects;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityLogic.BehaviourInterface;
 
 namespace Assets.Scripts.UnityCode
 {
-    public class PlayerStatBarUI : MonoBehaviour
+    public class PlayerStatBarUI : FloatValueListener
     {
         public Image imageFill;
         public FloatValue playerHealth;

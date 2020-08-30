@@ -51,6 +51,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -146,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: Chickna
-  speedMultiplier: 1
+  speedMultiplier: 1.5
   gameState: {fileID: 11400000, guid: 900383054c59efb4faa1b326e4d276fe, type: 2}
   levelSpeed: {fileID: 11400000, guid: b492649ae408f1440a3ccaaf6b982111, type: 2}
 --- !u!114 &4024751034595621950
